@@ -1,0 +1,40 @@
+{
+  "name": "perpus-umk",
+  "productName": "perpus-umk",
+  "version": "1.0.0",
+  "description": "My Electron application description",
+  "main": "src/main.js",
+  "scripts": {
+    "initsandbox": "sudo chown root:root ./node_modules/electron/dist/chrome-sandbox && sudo chmod 4755 ./node_modules/electron/dist/chrome-sandbox",
+    "tail": "npx @tailwindcss/cli -i ./src/css/input.css -o ./src/css/index.css --watch",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\""
+  },
+  "keywords": [],
+  "author": {
+    "name": "Alamabd",
+    "email": "alamabdillah0108@gmail.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.0.15",
+    "better-sqlite3": "^11.9.1",
+    "electron-squirrel-startup": "^1.0.1",
+    "tailwindcss": "^4.0.15"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^7.7.0",
+    "@electron-forge/maker-deb": "^7.7.0",
+    "@electron-forge/maker-rpm": "^7.7.0",
+    "@electron-forge/maker-squirrel": "^7.7.0",
+    "@electron-forge/maker-zip": "^7.7.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.7.0",
+    "@electron-forge/plugin-fuses": "^7.7.0",
+    "@electron/fuses": "^1.8.0",
+    "daisyui": "^5.0.9",
+    "electron": "35.0.3"
+  }
+}

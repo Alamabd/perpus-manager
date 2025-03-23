@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Perpus UMK</title>
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body onload="loaded()">
+    <div class="m-4 select-none">
+      <header class="flex justify-between items-center">
+        <span class="flex gap-2 items-center">
+          <img src="./images/PerpusUMK.png" alt="PerpusUMK" width="30">
+          <h1 class="text-2xl font-bold">Perpus UMK</h1>
+        </span>
+        <div>
+          <button class="btn btn-neutral">Daftar</button>
+          <div class="indicator">
+            <span class="indicator-item badge badge-warning">2</span>
+            <button class="btn btn-soft">Telat</button>
+          </div>
+        </div>
+      </header>
+      <main>
+        <!-- List borrower -->
+        <div class="mt-4 border border-slate-200 rounded-xl overflow-x-auto">
+          <table class="table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Nama</th>
+                <th>Buku</th>
+                <th>Dipinjam</th>
+                <th>Dikembalikan </th>
+                <th class="flex gap-2">
+                  Status
+                  <div class="popover relative">
+                    <span class="flex justify-center items-center w-5 h-5 rounded-full bg-slate-100">?</span>
+                    <div class="p-2 rounded absolute z-10 bg-black right-0 mt-2">
+                        <button class="text-gray-300">klik field status untuk mengubah status.</button>
+                    </div>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr id="listBooks" class="bg-base-200">
+                <th>1</th>
+                <td>
+                  <input id="name" type="text" placeholder="Enter disini" class="input" />
+                </td>
+                <td>
+                  <input id="book" type="text" placeholder="Enter disini" class="input" />
+                </td>
+                <td class="relative">
+                  <label id="labelBorrow" class="input cursor-pointer" for="borrow"></label>
+                  <input id="borrow" type="date" class="input left-0 bottom-1 absolute invisible" />
+                </td>
+                <td class="relative">
+                  <label id="labelReturned" class="input cursor-pointer" for="returned"></label>
+                  <input id="returned" type="date" class="input left-0 bottom-1 absolute invisible" />
+                </td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="text-center">
+          <div class="mt-2 join">
+            <button class="join-item btn btn-active">1</button>
+            <button class="join-item btn">2</button>
+            <button class="join-item btn">3</button>
+            <button class="join-item btn">4</button>
+          </div>
+        </div>
+      </main>
+      <div id="alert" role="alert" class="fixed bottom-4 right-4 alert alert-horizontal">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-info h-6 w-6 shrink-0">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <span id="alertmessage">pesan peringatan.</span>
+        <div>
+          <button onclick="" class="btn btn-sm">tidak</button>
+          <button class="btn btn-sm btn-primary">oke</button>
+        </div>
+      </div>
+    </div>
+    <script src="./renderer.js"></script>
+  </body>
+</html>

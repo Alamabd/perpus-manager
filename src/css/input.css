@@ -1,0 +1,13 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+details > summary::after {
+    display: none;
+}
+
+.popover > div {
+    display: none;
+}
+.popover:hover > div {
+    display: block;
+}
