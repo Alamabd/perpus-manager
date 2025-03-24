@@ -11,3 +11,14 @@ details > summary::after {
 .popover:hover > div {
     display: block;
 }
+
+.my-alert {
+    transition: all 0.3s;
+    opacity: 0%;
+    transform: translateY(0px);
+}
+
+.show-alert {
+    opacity: 100%;
+    transform: translateY(-20px);
+}

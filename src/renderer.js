@@ -48,7 +48,7 @@ const handleChange = async (value, type) => {
             <td class="text-nowrap">${book}</td>
             <td>${formatDateString(borrow)}</td>
             <td>${formatDateString(returned)}</td>
-            <td class="text-nowrap cursor-pointer" onclick="changeStatus(${lastid + 1}, 'dikembalikan')">
+            <td id="statusbook${lastid}" class="text-nowrap cursor-pointer" onclick="changeStatus(${lastid + 1}, '${name}',  'pinjam')">
                 <div class="inline-grid *:[grid-area:1/1]">
                 <div class="status ${'pinjam' == 'pinjam' ?  'status-warning' : 'pinjam' == 'telat' ? 'status-error' : 'status-primary'} animate-pulse"></div>
                 </div> pinjam
@@ -100,11 +100,15 @@ const getBooks = async () => {
     books.forEach((book, idx) => {
         els += `<tr>
         <th>${idx + 2}</th>
-        <td class="text-nowrap">${book.name}</td>
-        <td class="text-nowrap">${book.title}</td>
+        <td class="text-nowrap">
+            <input class="outline-none" type="text" value="${book.name}" />
+        </td>
+        <td class="text-nowrap">
+            <input class="outline-none" type="text" value="${book.title}" />
+        </td>
         <td class="text-nowrap">${formatDateString(book.borrow)}</td>
         <td class="text-nowrap">${formatDateString(book.returned)}</td>
-        <td class="text-nowrap cursor-pointer" onclick="changeStatus(${book.id}, '${book.status}')">
+        <td id="statusbook${book.id}" class="text-nowrap cursor-pointer" onclick="changeStatus(${book.id}, '${book.name}', '${book.status}')">
             <div class="inline-grid *:[grid-area:1/1]">
             <div class="status ${book.status == 'pinjam' ?  'status-warning' : book.status == 'telat' ? 'status-error' : 'status-primary'} animate-pulse"></div>
             </div> ${book.status}
@@ -131,15 +135,58 @@ const resetField = () => {
     book.value = null
 }
 
+
+// Alert
+const btnNo = document.getElementById('alertNo')
+const btnYes = document.getElementById('alertYes')
+const alertMessage = document.getElementById('alertMessage')
+const alert = document.getElementById('alert')
+let alertState = {
+    show: false,
+    tagetId: 0
+}
+
+const openAlert = (message) => {
+    if(!alertState.show) {
+        alertState.show = true
+        alertMessage.innerText = message
+        alert.classList.add('show-alert')
+    }
+}
+
+btnNo.addEventListener('click', () => {
+    if(alertState.show) {
+        alertState.show = false
+        alert.classList.remove('show-alert')
+    }
+})
+btnYes.addEventListener('click', async () => {
+    if(alertState.show) {
+        await window.books.changeStatusBook(alertState.tagetId, 'pinjam')
+        const el = document.getElementById(`statusbook${alertState.tagetId}`)
+        el.innerHTML = `
+            <div class="inline-grid *:[grid-area:1/1]">
+                <div class="status status-warning animate-pulse"></div>
+            </div> pinjam
+        `
+        alertState.show = false
+        alert.classList.remove('show-alert')
+    }
+})
+
 // Change status Book
-const changeStatus = (id, status) => {
-    console.log(status);
-    
+const changeStatus = async (id, name, status) => {
     if(status === 'pinjam' || status === 'telat') {
-        console.log("status set ke dikembalikan");
+        await window.books.changeStatusBook(id, 'dikembalikan')
+        const el = document.getElementById(`statusbook${id}`)
+        el.innerHTML = `
+            <div class="inline-grid *:[grid-area:1/1]">
+                <div class="status status-primary animate-pulse"></div>
+            </div> dikembalikan
+        `
     } else {
-        console.log("status sudah dikembalikan");
-        
+        alertState.tagetId = id
+        openAlert(`${name} sudah mengembalikan buku (oke untuk kembali pinjam)`)
     }
 }
 
